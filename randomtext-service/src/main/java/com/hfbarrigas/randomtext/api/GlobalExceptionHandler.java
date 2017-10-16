@@ -2,6 +2,7 @@ package com.hfbarrigas.randomtext.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hfbarrigas.randomtext.exceptions.InternalErrorException;
+import com.hfbarrigas.randomtext.exceptions.InvalidRequestException;
 import com.hfbarrigas.randomtext.logger.Loggable;
 import com.hfbarrigas.randomtext.model.api.ErrorDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,20 @@ public class GlobalExceptionHandler implements Loggable {
     @ExceptionHandler(ServerWebInputException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Mono<ErrorDetails> handle(ServerWebInputException e, ServerHttpRequest request) {
+        logger().error("ConstraintViolationException", e);
+        return Mono.just(ErrorDetails.builder()
+                .withTimestamp(OffsetDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()))
+                .withException(e.getClass().getSimpleName())
+                .withMessage(e.getMessage())
+                .withPath(request.getPath().value())
+                .withStatus(HttpStatus.BAD_REQUEST.value())
+                .withError(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .build());
+    }
+
+    @ExceptionHandler(InvalidRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Mono<ErrorDetails> handle(InvalidRequestException e, ServerHttpRequest request) {
         logger().error("ConstraintViolationException", e);
         return Mono.just(ErrorDetails.builder()
                 .withTimestamp(OffsetDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()))

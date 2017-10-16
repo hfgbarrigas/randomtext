@@ -1,5 +1,6 @@
 package com.hfbarrigas.randomtext.api;
 
+import com.hfbarrigas.randomtext.exceptions.InvalidRequestException;
 import com.hfbarrigas.randomtext.logger.Loggable;
 import com.hfbarrigas.randomtext.mapper.ApiMapper;
 import com.hfbarrigas.randomtext.model.api.TextData;
@@ -38,6 +39,9 @@ public class TextApi implements Loggable {
                                    @RequestParam(name = "p_end", required = true) Integer pEnd,
                                    @Min(1) @RequestParam(name = "w_count_min", required = true) Integer wCountMin,
                                    @RequestParam(name = "w_count_max", required = true) Integer wCountMax) {
+        if(pStart > pEnd || wCountMin > wCountMax) {
+            return Mono.error(new InvalidRequestException("Invalid parameters, p_start > p_end or w_count_min > w_count_max."));
+        }
         return textDataService.getRandomText(pStart, pEnd, wCountMin, wCountMax).map(apiMapper::toApiTextData);
     }
 
