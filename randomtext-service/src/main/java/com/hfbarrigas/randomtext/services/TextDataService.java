@@ -70,12 +70,11 @@ public class TextDataService implements Loggable {
                     textData.setAvgParagraphProcessingTime(textData.getAvgParagraphProcessingTime() / allParagraphs.length);
                     textData.setAvgParagraphSize(textData.getAvgParagraphSize() / allParagraphs.length);
 
-                    //store into the database
-                    reactiveTextDataRepository.save(textData);
-
                     //finally check long it elapsed
                     stopWatch.stop();
                     textData.setTotalProcessingTime((float) stopWatch.elapsed(TimeUnit.MILLISECONDS));
+                    //store into the database
+                    reactiveTextDataRepository.save(textData).subscribe();
                     return textData;
                 });
     }
@@ -97,7 +96,7 @@ public class TextDataService implements Loggable {
         final Iterator<String> it = wordsByFrequency.keySet().iterator();
 
         if (it.hasNext()) {
-            return new TextData(it.next(), 0, 0F, 0F);
+            return new TextData(it.next(), 0, 0F, 0F, System.currentTimeMillis());
         } else {
             throw new InternalErrorException("No most frequent word found for paragraphs: " + paragraphs);
         }
