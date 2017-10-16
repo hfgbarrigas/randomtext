@@ -12,4 +12,4 @@ java \
 -jar \
 -Dnetworkaddress.cache.ttl=60 \
 -Dspring.profiles.active=$ENVIRONMENT \
-/usr/opt/service/filtering.jar
+/usr/opt/service/randomtext.jar

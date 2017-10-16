@@ -8,7 +8,7 @@ ADD deploy/scripts/run.sh run.sh
 RUN mkdir -p /usr/opt/service
 
 # Bundle app source
-COPY target/filter-service*.jar /usr/opt/service/filtering.jar
+COPY target/randomtext-service*.jar /usr/opt/service/randomtext.jar
 
 # make port 8080 available
 EXPOSE 8080
