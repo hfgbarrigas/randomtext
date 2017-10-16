@@ -75,7 +75,7 @@
                     <autoPull>true</autoPull>
                     <images>
                         <image>
-                            <alias>mongo</alias>
+                            <alias>mongo_db</alias>
                             <name>mongo:latest</name>
                             <run>
                                 <wait>
@@ -83,7 +83,7 @@
                                     <time>3000</time>
                                 </wait>
                                 <log>
-                                    <prefix>mongo</prefix>
+                                    <prefix>mongo_db</prefix>
                                     <color>yellow</color>
                                 </log>
                                 <ports>
@@ -139,11 +139,11 @@
                     <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
                     <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
                     <excludes>
-                        <!--                        <exclude>com/hfbarrigas/filter/configuration/*.class</exclude>
-                                                <exclude>com/hfbarrigas/filter/model/**/*.class</exclude>
-                                                <exclude>com/hfbarrigas/filter/exceptions/*.class</exclude>
-                                                <exclude>com/hfbarrigas/filter/properties/*.class</exclude>
-                                                <exclude>com/hfbarrigas/filter/utils/*.class</exclude> -->
+                        <exclude>com/hfbarrigas/randomtext/configuration/*.class</exclude>
+                        <exclude>com/hfbarrigas/randomtext/model/**/*.class</exclude>
+                        <exclude>com/hfbarrigas/randomtext/exceptions/*.class</exclude>
+                        <exclude>com/hfbarrigas/randomtext/properties/*.class</exclude>
+                        <exclude>com/hfbarrigas/randomtext/utils/*.class</exclude>
                     </excludes>
                 </configuration>
                 <executions>

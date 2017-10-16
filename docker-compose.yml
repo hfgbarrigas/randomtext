@@ -5,11 +5,11 @@ services:
     ports:
      - "8080:8080"
     links:
-      - mongo
+      - mongo_db
     depends_on:
-      - mongo
+      - mongo_db
     environment:
       - ENVIRONMENT=qa
-  mongo:
+  mongo_db:
     image: "mongo:latest"
-    container_name: mongo
+    container_name: mongo_db
