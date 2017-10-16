@@ -17,13 +17,15 @@ Stop - docker-compose stop
 
 Api
 ======
-curl localhost:8080/persons - H 'Accept: application/json'
+curl localhost:8080/betvictor/text? - H 'Accept: application/json'
 ```
 @Min(1) @RequestParam(name = "p_start", required = true) Integer pStart,
 @RequestParam(name = "p_end", required = true) Integer pEnd,
 @Min(1) @RequestParam(name = "w_count_min", required = true) Integer wCountMin,
 @RequestParam(name = "w_count_max", required = true) Integer wCountMax
 ```
+
+curl localhost:8080/betvictor/history - H 'Accept: application/json'
 
 TODO
 ======
