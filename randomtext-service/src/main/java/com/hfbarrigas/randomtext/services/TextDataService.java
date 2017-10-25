@@ -86,20 +86,16 @@ public class TextDataService implements Loggable {
 
         final String[] words = cleanedParagraphs.split(SPACE);
 
-        final LinkedHashMap<String, Long> wordsByFrequency = Stream.of(words)
+        final String word = Stream.of(words)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet()
                 .stream()
                 .sorted((es1, es2) -> es2.getValue().compareTo(es1.getValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (o, n) -> o, LinkedHashMap::new));
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse(null);
 
-        final Iterator<String> it = wordsByFrequency.keySet().iterator();
-
-        if (it.hasNext()) {
-            return new TextData(it.next(), 0, 0F, 0F, System.currentTimeMillis());
-        } else {
-            throw new InternalErrorException("No most frequent word found for paragraphs: " + paragraphs);
-        }
+        return new TextData(word, 0, 0F, 0F, System.currentTimeMillis());
     }
 
     private InternalErrorException exception(Object[] args) {
